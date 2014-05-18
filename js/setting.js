@@ -77,14 +77,14 @@ OpenSpending.Styles.Cofog = {
   '20-7': { icon: 'icons/schools.svg', color: '#C75746', bcolor: '#790586' },
   '20-8': { icon: 'icons/schools.svg', color: '#C75746', bcolor: '#790586' },
   '20-9': { icon: 'icons/schools.svg', color: '#C75746', bcolor: '#790586' },
-  '21': { icon: 'icons/prirodne_nepogode.svg', color: '#C75746', bcolor: '#790586' },
-  '21-1': { icon: 'icons/prirodne_nepogode.svg', color: '#C75746', bcolor: '#790586' },
-  '21-2': { icon: 'icons/prirodne_nepogode.svg', color: '#C75746', bcolor: '#790586' },
-  '22': { icon: 'icons/money.svg', color: '#C75746', bcolor: '#790586' },
-  '22-1': { icon: 'icons/money.svg', color: '#C75746', bcolor: '#790586' },
-  '22-2': { icon: 'icons/money.svg', color: '#C75746', bcolor: '#790586' },
-  '23': { icon: 'icons/publicaffairs.svg', color: '#C75746', bcolor: '#790586' },
-  '23-1': { icon: 'icons/publicaffairs.svg', color: '#C75746', bcolor: '#790586' }
+  '21': { icon: 'icons/prirodne_nepogode.svg', color: '#C75746', bcolor: '#935B3B' },
+  '21-1': { icon: 'icons/prirodne_nepogode.svg', color: '#C75746', bcolor: '#935B3B' },
+  '21-2': { icon: 'icons/prirodne_nepogode.svg', color: '#C75746', bcolor: '#935B3B' },
+  '22': { icon: 'icons/money.svg', color: '#C75746', bcolor: '#0AB971' },
+  '22-1': { icon: 'icons/money.svg', color: '#C75746', bcolor: '#0AB971' },
+  '22-2': { icon: 'icons/money.svg', color: '#C75746', bcolor: '#0AB971' },
+  '23': { icon: 'icons/publicaffairs.svg', color: '#C75746', bcolor: '#4E6D00' },
+  '23-1': { icon: 'icons/publicaffairs.svg', color: '#C75746', bcolor: '#4E6D00' }
 };
 
 OpenSpending.Informations = OpenSpending.Informations || {};
