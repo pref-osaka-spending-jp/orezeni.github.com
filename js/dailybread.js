@@ -37,6 +37,7 @@ OpenSpending.DailyBread = function (elem) {
   this.tiers = []
   this.areas = []
   this.iconLookup = function (name) { return undefined; };
+  this.information = function (name) { return undefined; };
 
   this.init = function () {
     this.setSalary(4000000) // default starting salary
@@ -51,6 +52,7 @@ OpenSpending.DailyBread = function (elem) {
     })
 
     this.$e.delegate('.db-area-col', 'click', this.handleClick)
+    this.$e.delegate('.db-area-title', 'mouseover', this.handleMouseover)
   }
 
   this.sliderUpdated = function (evt, sld) {
@@ -87,6 +89,28 @@ OpenSpending.DailyBread = function (elem) {
     })
   }
 
+  this.handleMouseover = function () {
+    $(this).qtip({
+      overwrite: false,
+      position: {
+        my: 'top left',
+        at: 'bottom center',
+        target: $(this)
+      },
+      show: {
+        ready: true
+      },
+      hide: {
+        fixed: true,
+        delay: 300
+      },
+      content: {
+        title: $(this).find("h3").text(),
+        text: $(this).find(".db-area-description").text()
+      }
+    })
+  }
+
   this.setData = function (data) {
     self.data = data
   }
@@ -108,6 +132,10 @@ OpenSpending.DailyBread = function (elem) {
 
   this.setIconLookup = function(lookup) {
     self.iconLookup = lookup;
+  }
+
+  this.setInfoLookup = function(info) {
+    self.infoLookup = info;
   }
 
   this.setSalary = function (salary) {
@@ -144,6 +172,7 @@ OpenSpending.DailyBread = function (elem) {
                 "<% _.each(areas, function(area, idx) { %>" +
                 "  <div class='db-area-col db-area-title' style='width: <%= width %>%;' data-db-area='<%= idx %>'>" +
                 "    <h3><%= area[1] %></h3>" +
+                "    <div class='db-area-description' style='display: none;'></div>" +
                 "  </div>" +
                 "<% }); %>" +
                 "</div>" +
@@ -160,6 +189,12 @@ OpenSpending.DailyBread = function (elem) {
 
       self.drawIcons(t);
     }
+
+    var infos = _.map(data, function(d) { return self.infoLookup(d[0]); });
+    var descElms = t.find('.db-area-description');
+    _.each(infos, function (info, idx) {
+      descElms.eq(idx).text(info);
+    });
 
     // Update values
     var valEls = t.find('.db-area-value')

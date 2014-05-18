@@ -63,6 +63,10 @@ var OpenSpending = OpenSpending || {};
         }
         drilldowns = $.unique(drilldowns);
         data.drilldown = drilldowns.join('|');
+
+        if (config.orders !== undefined) {
+          data.order = config.orders.join('|');
+        }
         return data;
     };
 
