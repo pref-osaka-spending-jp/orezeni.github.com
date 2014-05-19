@@ -37,7 +37,7 @@ OpenSpending.DailyBread = function (elem) {
   this.tiers = []
   this.areas = []
   this.iconLookup = function (name) { return undefined; };
-  this.information = function (name) { return undefined; };
+  this.descLookup = function (name) { return undefined; };
 
   this.init = function () {
     this.setSalary(4000000) // default starting salary
@@ -52,7 +52,7 @@ OpenSpending.DailyBread = function (elem) {
     })
 
     this.$e.delegate('.db-area-col', 'click', this.handleClick)
-    this.$e.delegate('.db-area-title', 'mouseover', this.handleMouseover)
+    this.$e.delegate('.db-area-icon', 'mouseover', this.handleMouseover)
   }
 
   this.sliderUpdated = function (evt, sld) {
@@ -90,6 +90,7 @@ OpenSpending.DailyBread = function (elem) {
   }
 
   this.handleMouseover = function () {
+    var tooltip = $(this).next('.db-area-tooltip');
     $(this).qtip({
       overwrite: false,
       position: {
@@ -105,8 +106,8 @@ OpenSpending.DailyBread = function (elem) {
         delay: 300
       },
       content: {
-        title: $(this).find("h3").text(),
-        text: $(this).find(".db-area-description").text()
+        title: tooltip.attr('data-db-tooltip-title'),
+        text: '<div class="desc">' + tooltip.attr('data-db-tooltip-desc') + '</div><div class="amount">' + tooltip.next('.db-area-value').text() + '</div>'
       }
     })
   }
@@ -134,8 +135,8 @@ OpenSpending.DailyBread = function (elem) {
     self.iconLookup = lookup;
   }
 
-  this.setInfoLookup = function(info) {
-    self.infoLookup = info;
+  this.setDescLookup = function(lookup) {
+    self.descLookup = lookup;
   }
 
   this.setSalary = function (salary) {
@@ -172,7 +173,6 @@ OpenSpending.DailyBread = function (elem) {
                 "<% _.each(areas, function(area, idx) { %>" +
                 "  <div class='db-area-col db-area-title' style='width: <%= width %>%;' data-db-area='<%= idx %>'>" +
                 "    <h3><%= area[1] %></h3>" +
-                "    <div class='db-area-description' style='display: none;'></div>" +
                 "  </div>" +
                 "<% }); %>" +
                 "</div>" +
@@ -180,6 +180,7 @@ OpenSpending.DailyBread = function (elem) {
                 "<% _.each(areas, function(area, idx) { %>" +
                 "  <div class='db-area-col' style='width: <%= width %>%;' data-db-area='<%= idx %>'>" +
                 "    <div class='db-area-icon' data-svg-url='<%= icons[idx] %>'></div>" +
+                "    <div class='db-area-tooltip' data-db-tooltip-title='<%= area[1] %>' data-db-tooltip-desc=''></div>" +
                 "    <div class='db-area-value'></div>" +
                 "  </div>" +
                 "<% }); %>" +
@@ -190,10 +191,10 @@ OpenSpending.DailyBread = function (elem) {
       self.drawIcons(t);
     }
 
-    var infos = _.map(data, function(d) { return self.infoLookup(d[0]); });
-    var descElms = t.find('.db-area-description');
+    var infos = _.map(data, function(d) { return self.descLookup(d[0]); });
+    var descElms = t.find('.db-area-tooltip');
     _.each(infos, function (info, idx) {
-      descElms.eq(idx).text(info);
+      descElms.eq(idx).attr('data-db-tooltip-desc', info);
     });
 
     // Update values

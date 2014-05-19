@@ -17,8 +17,8 @@ yepnope({
     '/js/aggregator.js',
     '/css/dailybread.css',
     '/css/cra-map.css',
-    '/js/setting.js?20120707',
-    '/js/dailybread.js?20120707'
+    '/js/setting.js?20140519',
+    '/js/dailybread.js?20140519'
   ],
   complete: function() {
 
@@ -52,7 +52,7 @@ yepnope({
               }
               return 'icons/unknown.svg';
             });
-            db.setInfoLookup(function(name) {
+            db.setDescLookup(function(name) {
               var info = OpenSpending.Informations.Cofog[name];
               if (info != undefined) {
                 return info['desc'];
